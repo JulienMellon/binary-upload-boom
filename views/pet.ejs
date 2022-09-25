@@ -16,29 +16,39 @@
       </div>
 
       <!-- List of vaccines -->
-
+      
       <div class="container">
+        <h2>Vaccines Saved for: <%= pet.name %></h2>
         <div class="row justify-content-center mt-5">
           <ul class="row list-unstyled">
             <% for(var i=0; i< vaccine.length; i++) {%>
-            
-              <li class="col-6 justify-content-between mt-5">
-                <%= vaccine[i].vaccine %>
-                  <form class="col-1" action="/vaccines/likeComment/<%= vaccine[i].id %>?_method=PUT" method="POST">
-                    <button class="btn btn-primary fa fa-heart" type="submit"></button>
+
+              <div class="card card-compact w-96 bg-base-100 shadow-xl">
+                <figure><img src="<%= vaccine[i].image %>" alt="Shoes" /></figure>
+                <div class="card-body">
+                  <h2 class="card-title"><%= vaccine[i].vaccine %></h2>
+                  <h2 class="card-title">Administered on: <%= vaccine[i].dateAdministered %></h2>
+                  <p>If a dog chews shoes whose shoes does he choose?</p>
+                  <!-- Update Vaccination -->
+                    <form class="col-1" action="/vaccines/likeComment/<%= vaccine[i].id %>?_method=PUT" method="POST">
+                    <button class="btn btn-primary fa fa-edit" type="submit"></button>
                     <input type="hidden" name="petid" value="<%= pet.id %>">
                   </form>
-                  <%if(pet.user==user.id){ %>
+                   
+                   <!-- Delete Vaccination -->
+                   
                     <form action="/vaccine/deleteComment/<%= vaccine[i].id %>?_method=PUT" method="POST" class="col-3">
                       <button class="btn btn-primary fa fa-trash" type="submit"></button>
                       <input type="hidden" name="petid" value="<%= pet.id %>">
                     </form>
-                    <%}%>
-                  <h3 class="col-3">Likes: <%= vaccine[i].likes %>
-                  </h3>
-                  
-              </li>
+                   
+                  <!-- <div class="card-actions justify-end">
+                    <button class="btn btn-primary">Buy Now</button>
+                  </div> -->
+                </div>
+              </div>
             
+                        
               <% } %>
               
           </ul>
@@ -50,12 +60,13 @@
       <div class="mt-5">
         <h2>Add a vaccine</h2>
         <!-- Vaccines Form needs to include: vaccine image dateAdministered -->
-        <form action="/vaccines/createVaccine/<%= pet.id %>" method="POST">
+        <form action="/vaccine/createVaccine/" enctype="multipart/form-data" method="POST">
           <div class="mb-3">
             <label for="vaccine" class="form-label">Vaccine</label>
             <input type="text" class="form-control" id="vaccine" name="vaccine" placeholder="vaccine name">
             <input type="date" name="dateAdministered" id="dateAdministered">
             <input type="file" class="form-control" id="imageUpload" name="file">
+            <input type="hidden" name="petid" id="petid" value="<%= pet.id %>">
           </div>
           <button type="submit" class="btn btn-primary"> Submit</button>
         </form>
@@ -64,8 +75,8 @@
       
 
       <div class="col-6 mt-5">
-        <a class="btn btn-primary" href="/profile">Return to Profile</a>
-        <a class="btn btn-primary" href="/feed">Return to Feed</a>
+        <a class="btn btn-primary" href="/profile">Return to My Pets</a>
+        <!-- <a class="btn btn-primary" href="/feed">Return to Feed</a> -->
       </div>
     </div>
   </div>

@@ -6,3 +6,7 @@
     font-family: 'Roboto Slab', serif;
     padding-top: 4rem;
 }
+
+.centerme{
+    margin: 0 auto;
+}

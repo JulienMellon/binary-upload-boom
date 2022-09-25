@@ -7,7 +7,7 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 //Vaccine Routes - simplified for now
 // router.get("/:id", ensureAuth, vaccinesController.getVaccine);
 
-router.post("/createVaccine:petid", upload.single("file"), vaccinesController.createVaccine);
+router.post("/createVaccine/", upload.single("file"), vaccinesController.createVaccine);
 
 router.put("/likeVaccine/:id", vaccinesController.likeVaccine);
 

@@ -1,21 +1,21 @@
 const cloudinary = require("../middleware/cloudinary");
+const Pet = require("../models/Pet");
 const Vaccine = require("../models/Vaccine");
 
 module.exports = {
 	createVaccine: async (req, res) => {
 		try {
 			const result = await cloudinary.uploader.upload(req.file.path);
-
 			await Vaccine.create({
 				vaccine: req.body.vaccine,
 				user: req.user.id,
-				petid: req.params.petid,dateAdministered: req.body.dateAdministered,
+				petid: req.body.petid,
+				dateAdministered: req.body.dateAdministered,
 				image: result.secure_url,				
-				cloudinaryId: result.public_id,
-				
+				cloudinaryId: result.public_id				
 			});
 			console.log("Vaccine has been added!");
-			res.redirect("/pet/" + req.params.idPost);
+			res.redirect("/pet/" + req.body.petid);
 		} catch (err) {
 			console.log(err);
 		}
